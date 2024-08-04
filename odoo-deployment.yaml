@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      containers:
+      - name: odoo
+        image: odoo:16.0
+        env:
+        - name: HOST
+          value: postgres-service
+        - name: USER
+          value: odoo
+        - name: PASSWORD
+          value: odoo
+        ports:
+        - containerPort: 8069
